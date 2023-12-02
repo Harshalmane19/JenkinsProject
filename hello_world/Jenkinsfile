@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        PATH = "$PATH:/usr/local/bin"
-    }
-
     stages {
         stage('Java Build') {
             steps {
@@ -15,14 +11,20 @@ pipeline {
             }
         }
 
-  
+        stage('Node.js Build') {
+            steps {
+                dir('hello_world') {
+                    // No build needed for Node.js
+                }
+            }
+        }
 
         stage('Execute Applications') {
-            environment {
-                NODEJS_HOME = tool 'NodeJS'
-                PATH = "$NODEJS_HOME/bin:$PATH"
-            }
             steps {
+                dir('hello_world') {
+                    // Run Java application
+                    sh 'java Helloworld.java'
+                }
 
                 dir('hello_world') {
                     // Run Node.js application
@@ -31,9 +33,6 @@ pipeline {
             }
         }
     }
-      tools {
-        // Define Node.js tool
-        nodejs 'NodeJS'
-    }
 }
+
 
