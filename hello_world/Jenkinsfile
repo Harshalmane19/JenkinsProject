@@ -4,7 +4,7 @@ pipeline {
     environment {
         NODEJS_HOME = tool 'NodeJS'
         PATH = "$NODEJS_HOME/bin:$PATH"
-    }}
+    }
 
     stages {
         stage('Java Build') {
