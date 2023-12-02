@@ -23,7 +23,7 @@ pipeline {
             steps {
                 dir('hello_world') {
                     // Run Java application
-                    sh 'java Helloworld'
+                    sh 'java Helloworld.java'
                 }
 
                 dir('hello_world') {
