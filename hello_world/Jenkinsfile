@@ -4,16 +4,16 @@ pipeline {
     stages {
         stage('Java Build') {
             steps {
-                script {
+                dir('hello_world') {
                     // Compile Java code
-                    sh 'javac hello_world/Helloworld.java'
+                    sh 'javac Helloworld.java'
                 }
             }
         }
 
         stage('Node.js Build') {
             steps {
-                script {
+                dir('hello_world') {
                     // No build needed for Node.js
                 }
             }
@@ -21,15 +21,18 @@ pipeline {
 
         stage('Execute Applications') {
             steps {
-                script {
+                dir('hello_world') {
                     // Run Java application
-                    sh 'java -cp hello_world Helloworld'
+                    sh 'java Helloworld'
+                }
 
+                dir('hello_world') {
                     // Run Node.js application
-                    sh 'node hello_world/app.js'
+                    sh 'node app.js'
                 }
             }
         }
     }
 }
+
 
