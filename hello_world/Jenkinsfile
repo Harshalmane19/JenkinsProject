@@ -14,7 +14,7 @@ pipeline {
         stage('Node.js Build') {
             steps {
                 dir('hello_world') {
-                    // No build needed for Node.js
+                    sh 'npm install'
                 }
             }
         }
