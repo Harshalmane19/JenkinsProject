@@ -13,11 +13,9 @@ pipeline {
 
         stage('Node.js Build') {
          
-            steps {
-                 
-            sh 'npm install'
-          
-            }
+            tools {
+        nodejs 'NodeJS'
+         }
         }
 
         stage('Execute Applications') {
@@ -29,7 +27,8 @@ pipeline {
 
                 dir('hello_world') {
                     // Run Node.js application
-                    sh 'node app.js'
+                sh 'npm install'
+                 sh 'node app.js'
                 }
             }
         }
