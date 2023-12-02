@@ -1,0 +1,35 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Java Build') {
+            steps {
+                script {
+                    // Compile Java code
+                    sh 'javac hello_world/Helloworld.java'
+                }
+            }
+        }
+
+        stage('Node.js Build') {
+            steps {
+                script {
+                    // No build needed for Node.js
+                }
+            }
+        }
+
+        stage('Execute Applications') {
+            steps {
+                script {
+                    // Run Java application
+                    sh 'java -cp hello_world Helloworld'
+
+                    // Run Node.js application
+                    sh 'node hello_world/app.js'
+                }
+            }
+        }
+    }
+}
+
