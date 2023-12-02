@@ -6,7 +6,7 @@ pipeline {
             steps {
                 dir('hello_world') {
                     // Compile Java code
-                    sh 'javac Helloworld.java'
+                    sh 'java Helloworld.java'
                 }
             }
         }
