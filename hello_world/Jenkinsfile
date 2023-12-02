@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        NODEJS_HOME = tool 'NodeJS'
-        PATH = "$NODEJS_HOME/bin:$PATH"
-    }
-
     stages {
         stage('Java Build') {
             steps {
@@ -17,10 +12,11 @@ pipeline {
         }
 
         stage('Node.js Build') {
+         
             steps {
-                dir('hello_world') {
-                    // No build needed for Node.js
-                }
+                 
+            sh 'npm install'
+          
             }
         }
 
