@@ -15,23 +15,14 @@ pipeline {
             }
         }
 
-        stage('Node.js Build') {
-            steps {
-                // Install NVM and Node.js
-                sh 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash'
-                sh 'export NVM_DIR="$HOME/.nvm"'
-                sh '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"'
-                sh '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"'
-                sh 'nvm install node'
-            }
-        }
+  
 
         stage('Execute Applications') {
+            environment {
+                NODEJS_HOME = tool 'NodeJS'
+                PATH = "$NODEJS_HOME/bin:$PATH"
+            }
             steps {
-                dir('hello_world') {
-                    // Run Java application
-                    sh 'java Helloworld.java'
-                }
 
                 dir('hello_world') {
                     // Run Node.js application
@@ -39,6 +30,10 @@ pipeline {
                 }
             }
         }
+    }
+      tools {
+        // Define Node.js tool
+        nodejs 'NodeJS'
     }
 }
 
