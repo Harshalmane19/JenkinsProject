@@ -11,12 +11,7 @@ pipeline {
             }
         }
 
-        stage('Node.js Build') {
-         
-            tools {
-        nodejs 'NodeJS'
-         }
-        }
+        
 
         stage('Execute Applications') {
             steps {
