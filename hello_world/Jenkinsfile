@@ -14,7 +14,7 @@ pipeline {
             steps {
                 script {
                     // Build Node.js project
-                    dir('.') {
+                    dir('/var/lib/jenkins/workspace/Hello_World/hello_world') {
                         sh 'npm install'
                     }
                 }
