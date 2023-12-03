@@ -10,7 +10,16 @@ pipeline {
                 }
             }
         }
-
+        stage('Build Node.js') {
+            steps {
+                script {
+                    // Build Node.js project
+                    dir('.') {
+                        sh 'npm install'
+                    }
+                }
+            }
+        }
         
 
         stage('Execute Applications') {
@@ -22,7 +31,7 @@ pipeline {
 
                 dir('hello_world') {
                     // Run Node.js application
-                sh 'npm install'
+                
                  sh 'node app.js'
                 }
             }
