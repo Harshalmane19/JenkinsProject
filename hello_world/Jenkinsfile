@@ -1,33 +1,21 @@
 pipeline {
-    agent any
-
-    stages {
-        stage('Java Build') {
-            steps {
-                dir('hello_world') {
-                    // Compile Java code
-                    sh 'java Helloworld.java'
-                }
-            }
-        }
-
-        
-
-        stage('Execute Applications') {
-            steps {
-                dir('hello_world') {
-                    // Run Java application
-                    sh 'java Helloworld.java'
-                }
-
-                dir('hello_world') {
-                    // Run Node.js application
-                sh 'npm install'
-                 sh 'node app.js'
-                }
-            }
-        }
+  agent none
+  stages {
+    stage('Back-end') {
+      agent {
+        docker { image 'maven:3.8.1-adoptopenjdk-11' }
+      }
+      steps {
+        sh 'mvn clean package'
+      }
     }
+    stage('Front-end') {
+      agent {
+        docker { image 'node:16-alpine' }
+      }
+      steps {
+        sh 'npm install'
+      }
+    }
+  }
 }
-
-
