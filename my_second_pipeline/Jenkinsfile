@@ -6,7 +6,11 @@ pipeline {
                 docker { image 'maven:3.9.5-eclipse-temurin-17-alpine' }
             }
             steps {
-                sh 'mvn --version'
+                script {
+                    sh 'mvn --version'
+                    writeFile file: 'HelloWorld.java', text: 'public class HelloWorld { public static void main(String[] args) { System.out.println("Hello, World!"); } }'
+                    sh 'javac HelloWorld.java'
+                }
             }
         }
         stage('Front-end') {
@@ -14,7 +18,23 @@ pipeline {
                 docker { image 'node:20.10.0-alpine3.18' }
             }
             steps {
-                sh 'node --version'
+                script {
+                    sh 'node --version'
+                    writeFile file: 'HelloWorld.js', text: 'console.log("Hello, World!");'
+                }
+            }
+        }
+    }
+    post {
+        success {
+            stage('Run Programs') {
+                agent any
+                steps {
+                    script {
+                        sh 'java HelloWorld'
+                        sh 'node HelloWorld.js'
+                    }
+                }
             }
         }
     }
